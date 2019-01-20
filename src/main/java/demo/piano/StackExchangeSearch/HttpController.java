@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-public class GreetingController {
+public class HttpController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces="application/json")
             public String search(@RequestParam(value="searchString", defaultValue="") String searchString) {
