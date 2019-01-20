@@ -6,14 +6,31 @@ import org.springframework.web.client.RestTemplate;
 
 public class StackExchangeApi {
 
-    public String search(String searchString) {
+    private String baseUri;
+    private RestTemplate restTemplate;
 
+    public StackExchangeApi()
+    {
+        baseUri = "http://api.stackexchange.com/2.2/";
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
                 HttpClientBuilder.create().build());
-        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
+        restTemplate = new RestTemplate(clientHttpRequestFactory);
 
-        String response = restTemplate.getForObject("http://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle={searchString}}&site=stackoverflow", String.class, searchString);
+    }
 
-        return response;
+    public String search(String searchString) {
+        return restTemplate.getForObject(
+                searchUriTemplate(),
+                String.class,
+                "desc",
+                "activity",
+                searchString,
+                "stackoverflow"
+        );
+    }
+
+    private String searchUriTemplate()
+    {
+        return baseUri.concat("search?order={order}&sort={sort}&intitle={searchString}&site={site}");
     }
 }

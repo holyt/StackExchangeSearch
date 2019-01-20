@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HttpController {
 
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces="application/json")
-            public String search(@RequestParam(value="searchString", defaultValue="") String searchString) {
+    public String search(@RequestParam(value="searchString", defaultValue="") String searchString) {
         StackExchangeApi stackExchangeApi = new StackExchangeApi();
 
         return stackExchangeApi.search(searchString);
