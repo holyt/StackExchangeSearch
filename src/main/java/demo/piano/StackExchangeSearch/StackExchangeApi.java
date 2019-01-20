@@ -19,13 +19,17 @@ public class StackExchangeApi {
     }
 
     public String search(String searchString) {
+        String order = "desc";
+        String sort = "activity";
+        String site = "stackoverflow";
+
         return restTemplate.getForObject(
                 searchUriTemplate(),
                 String.class,
-                "desc",
-                "activity",
+                order,
+                sort,
                 searchString,
-                "stackoverflow"
+                site
         );
     }
 
