@@ -1,0 +1,9 @@
+@import "~bootstrap/scss/bootstrap";
+
+.question {
+  background: lightcoral;
+
+  &.is_answered {
+    background: lightgreen;
+  }
+}
