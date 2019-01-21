@@ -27,5 +27,6 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile("com.fasterxml.jackson.core:jackson-databind")
-	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
+    compile('org.springframework.boot:spring-boot-starter-webflux')
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
 }
