@@ -12,6 +12,6 @@ public class HttpController {
     @GetMapping("/search")
     @ResponseBody
     public Mono<String> search(@RequestParam("searchString") String searchString, StackExchangeApi stackExchangeApi) {
-        return Mono.just(stackExchangeApi.search(searchString)) ;
+        return stackExchangeApi.search(searchString) ;
     }
 }

@@ -1,45 +1,31 @@
 package demo.piano.StackExchangeSearch;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
-@Service
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import reactor.core.publisher.Mono;
+
 public class StackExchangeApi {
 
-    private String baseUri;
-    private String searchUriTemplate;
-    private RestTemplate restTemplate;
+    private String baseUri = "http://api.stackexchange.com/2.2/";
+    private String searchUri = "search?order={order}&sort={sort}&intitle={searchString}&site={site}";
+    private WebClient client = WebClient.create(baseUri);
 
 
-    public StackExchangeApi()
-    {
-        baseUri = "http://api.stackexchange.com/2.2/";
-        searchUriTemplate = generateSearchUriTemplate();
-        HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(
-                HttpClientBuilder.create().build());
-        restTemplate = new RestTemplate(clientHttpRequestFactory);
-
-    }
-
-    private String generateSearchUriTemplate()
-    {
-        return baseUri.concat("search?order={order}&sort={sort}&intitle={searchString}&site={site}");
-    }
-
-    public String search(String searchString) {
+    public Mono<String> search(String searchString) {
         String order = "desc";
         String sort = "activity";
         String site = "stackoverflow";
 
-        return restTemplate.getForObject(
-                searchUriTemplate,
-                String.class,
-                order,
-                sort,
-                searchString,
-                site
-        );
+        return client.get()
+                .uri(
+                        searchUri,
+                        order,
+                        sort,
+                        searchString,
+                        site
+                ).accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .bodyToMono(String.class);
     }
-
 }
