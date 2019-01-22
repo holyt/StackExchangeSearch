@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Question from "./Question.jsx";
 
 
-function QuestionsLIst(props) {
+function QuestionsList(props) {
     const questions = props.questions;
 
     const listQuestions = questions.map((question) =>
@@ -25,4 +24,4 @@ function QuestionsLIst(props) {
     );
 }
 
-export default QuestionsLIst;
+export default QuestionsList;

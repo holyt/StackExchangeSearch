@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 @Service
 public class StackExchangeApi {
 
-    private String searchUri = "search?order={order}&sort={sort}&intitle={searchString}&site={site}";
+    private String searchUri = "search?order={order}&sort={sort}&intitle={searchString}&site={site}&page={page}";
     private WebClient webClient;
 
     public StackExchangeApi(WebClient.Builder WebClientBuilder)
@@ -17,7 +17,7 @@ public class StackExchangeApi {
         webClient = WebClientBuilder.build();
     }
 
-    public Mono<String> search(String searchString) {
+    public Mono<String> search(String searchString, Integer page) {
         String order = "desc";
         String sort = "activity";
         String site = "stackoverflow";
@@ -27,7 +27,8 @@ public class StackExchangeApi {
                         order,
                         sort,
                         searchString,
-                        site
+                        site,
+                        page
                 ).accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(String.class);
