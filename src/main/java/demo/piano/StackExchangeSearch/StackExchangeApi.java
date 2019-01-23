@@ -20,9 +20,9 @@ public class StackExchangeApi {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
-    public StackExchangeApi(WebClient.Builder WebClientBuilder, ObjectMapper objectMapper)
+    public StackExchangeApi(WebClient.Builder webClientBuilder, ObjectMapper objectMapper)
     {
-        this.webClient = WebClientBuilder.build();
+        this.webClient = webClientBuilder.build();
         this.objectMapper = objectMapper;
     }
 
