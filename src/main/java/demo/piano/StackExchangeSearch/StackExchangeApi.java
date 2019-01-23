@@ -35,8 +35,7 @@ public class StackExchangeApi {
         }
     }
 
-    public Mono<SearchResult>
-    search(String searchString, Integer page) {
+    public Mono<SearchResult> search(String searchString, Integer page) {
         String order = "desc";
         String sort = "activity";
         String site = "stackoverflow";
