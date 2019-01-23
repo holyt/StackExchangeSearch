@@ -5,6 +5,7 @@ public class SearchResult {
     private Boolean hasMore;
     private Integer quotaMax;
     private Integer quotaRemaining;
+    private Question[] items;
 
     public Question[] getItems() {
         return items;
@@ -13,8 +14,6 @@ public class SearchResult {
     public void setItems(Question[] items) {
         this.items = items;
     }
-
-    private Question[] items;
 
     public Boolean getHasMore() {
         return hasMore;
