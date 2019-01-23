@@ -1,8 +1,11 @@
 package demo.piano.StackExchangeSearch;
 
+import demo.piano.StackExchangeSearch.domain.SearchResult;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import reactor.core.publisher.Mono;
 
@@ -11,13 +14,27 @@ public class StackExchangeApi {
 
     private String searchUri = "search?order={order}&sort={sort}&intitle={searchString}&site={site}&page={page}";
     private WebClient webClient;
+    private ObjectMapper objectMapper;
 
-    public StackExchangeApi(WebClient.Builder WebClientBuilder)
+    public StackExchangeApi(WebClient.Builder WebClientBuilder, ObjectMapper objectMapper)
     {
-        webClient = WebClientBuilder.build();
+        this.webClient = WebClientBuilder.build();
+        this.objectMapper = objectMapper;
     }
 
-    public Mono<String> search(String searchString, Integer page) {
+    private SearchResult convertStringToSearchResult(String body) {
+        SearchResult searchResult = new SearchResult();
+        try {
+            searchResult = objectMapper.readValue(body, SearchResult.class);
+        } catch (Exception exception) {
+            throw new IllegalArgumentException(exception.getMessage());
+        }
+
+        return  searchResult;
+    }
+
+    public Mono<SearchResult>
+    search(String searchString, Integer page) {
         String order = "desc";
         String sort = "activity";
         String site = "stackoverflow";
@@ -31,6 +48,6 @@ public class StackExchangeApi {
                         page
                 ).accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToMono(String.class).map(this::convertStringToSearchResult);
     }
 }
