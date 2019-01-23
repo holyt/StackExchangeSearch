@@ -27,15 +27,12 @@ public class StackExchangeApi {
     }
 
     private SearchResult convertStringToSearchResult(String body) {
-        SearchResult searchResult = new SearchResult();
         try {
-            searchResult = objectMapper.readValue(body, SearchResult.class);
+            return  objectMapper.readValue(body, SearchResult.class);
         } catch (Exception exception) {
             logger.error(exception.getMessage());
             throw new IllegalArgumentException(exception.getMessage());
         }
-
-        return  searchResult;
     }
 
     public Mono<SearchResult>
