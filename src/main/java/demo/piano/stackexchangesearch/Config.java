@@ -1,4 +1,4 @@
-package demo.piano.StackExchangeSearch;
+package demo.piano.stackexchangesearch;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;

@@ -1,8 +1,8 @@
-package demo.piano.StackExchangeSearch;
+package demo.piano.stackexchangesearch;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import demo.piano.StackExchangeSearch.domain.SearchResult;
+import demo.piano.stackexchangesearch.domain.SearchResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

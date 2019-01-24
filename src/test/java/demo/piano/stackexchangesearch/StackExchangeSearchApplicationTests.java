@@ -1,4 +1,4 @@
-package demo.piano.StackExchangeSearch;
+package demo.piano.stackexchangesearch;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

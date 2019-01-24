@@ -1,6 +1,6 @@
-package demo.piano.StackExchangeSearch;
+package demo.piano.stackexchangesearch;
 
-import demo.piano.StackExchangeSearch.domain.SearchResult;
+import demo.piano.stackexchangesearch.domain.SearchResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;

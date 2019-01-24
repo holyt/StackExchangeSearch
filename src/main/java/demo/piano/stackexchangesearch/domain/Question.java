@@ -1,4 +1,4 @@
-package demo.piano.StackExchangeSearch.domain;
+package demo.piano.stackexchangesearch.domain;
 
 public class Question {
     private Boolean isAnswered;
