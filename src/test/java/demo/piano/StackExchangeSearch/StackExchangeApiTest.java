@@ -36,9 +36,7 @@ public class StackExchangeApiTest {
             QuestionOwner owner = new QuestionOwner();
             owner.setDisplayName("ownerName");
 
-
             Question question = new Question();
-
             question.setIsAnswered(true);
             question.setAnswerCount(3);
             question.setCreationDate(1548279288);
@@ -53,7 +51,6 @@ public class StackExchangeApiTest {
             searchResult.setHasMore(true);
 
             Mono<SearchResult> searchResultMono = Mono.just(searchResult);
-
 
             Mockito.when(this.stackExchangeApi.search("test", 1))
                     .thenReturn(searchResultMono);

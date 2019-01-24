@@ -17,10 +17,9 @@ import reactor.core.publisher.Mono;
 public class StackExchangeApi {
 
     private String searchUri = "search?order={order}&sort={sort}&intitle={searchString}&site={site}&page={page}";
-    private WebClient webClient;
-    private ObjectMapper objectMapper= new ObjectMapper();
+    private final WebClient webClient;
+    private final ObjectMapper objectMapper;
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 
     public StackExchangeApi(WebClient.Builder webClientBuilder)
     {
