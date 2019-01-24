@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -22,7 +21,6 @@ public class StackExchangeApiTest {
     private MockWebServer server;
 
     private StackExchangeApi stackExchangeApi;
-
 
     @Before
     public void setup() throws IOException {
@@ -40,7 +38,7 @@ public class StackExchangeApiTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void badResponse() throws InterruptedException {
+    public void badResponse() {
         server.enqueue(new MockResponse().setResponseCode(200)
                 .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .setBody("hello, world!")
@@ -48,17 +46,13 @@ public class StackExchangeApiTest {
         stackExchangeApi.search("t", 1).block();
     }
 
-
     @Test
-    public void goodResponse() throws InterruptedException {
-
+    public void goodResponse() throws InterruptedException, IOException {
         try (InputStream io = getClass().getResourceAsStream("good.json")) {
             server.enqueue(new MockResponse().setResponseCode(200)
                     .setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                     .setBody(new Buffer().readFrom(io))
             );
-        } catch (Exception e) {
-
         }
 
         SearchResult searchResult =  stackExchangeApi.search("t", 1).block();
@@ -70,9 +64,6 @@ public class StackExchangeApiTest {
         assertEquals("Zibbobz", searchResult.getItems()[0].getOwner().getDisplayName());
         assertEquals("Java exception handling in Tomcat non-container thread",
                 searchResult.getItems()[29].getTitle());
-
-
-
         assertEquals("/search?order=desc&sort=activity&intitle=t&site=stackoverflow&page=1",
                 server.takeRequest().getPath());
     }
